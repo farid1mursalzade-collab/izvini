@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Для тебя ❤️</title>
+
+<style>
+body{
+    margin:0;
+    background:#111;
+    color:white;
+    font-family:Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+
+.screen{
+    text-align:center;
+    max-width:700px;
+    padding:30px;
+}
+
+button{
+    padding:12px 24px;
+    margin:10px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+#nextBtn{
+    background:#ff4d6d;
+    color:white;
+}
+
+#forgiveBtn{
+    background:#ff4d6d;
+    color:white;
+}
+
+#noBtn{
+    position:relative;
+}
+</style>
+</head>
+
+<body>
+
+<div class="screen">
+    <h1 id="title"></h1>
+    <p id="text"></p>
+
+    <div id="buttons">
+        <button id="nextBtn">Дальше →</button>
+    </div>
+</div>
+
+<script>
+
+const slides = [
+{
+title:"Привет ❤️",
+text:"Я сделал эту маленькую программу специально для тебя."
+},
+{
+title:"Помнишь Łazienki?",
+text:"Нашу первую прогулку в парке Łazienki."
+},
+{
+title:"Наши встречи",
+text:"Мне всегда хотелось показывать тебе интересные места и проводить время вместе."
+},
+{
+title:"Любимый звук",
+text:"Но больше всего мне нравится слышать твоё 'хи-хи-хаха'."
+},
+{
+title:"Сейчас",
+text:"Я знаю, что ты злишься на меня."
+},
+{
+title:"Важно",
+text:"Я не хочу спорить. Мне важно только то, что тебе было неприятно и больно."
+},
+{
+title:"Прости",
+text:"Если я заставил тебя сомневаться во мне — мне правда жаль."
+}
+];
+
+let current = 0;
+
+const title = document.getElementById("title");
+const text = document.getElementById("text");
+const nextBtn = document.getElementById("nextBtn");
+const buttons = document.getElementById("buttons");
+
+function showSlide() {
+
+    title.innerText = slides[current].title;
+    text.innerText = slides[current].text;
+
+    if(current === slides.length - 1){
+
+        buttons.innerHTML = `
+        <button id="forgiveBtn">❤️ Дать шанс</button>
+        <button id="noBtn">😠 Не прощу</button>
+        `;
+
+        const noBtn = document.getElementById("noBtn");
+
+        noBtn.addEventListener("mouseover", () => {
+
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 80);
+
+            noBtn.style.position = "absolute";
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        });
+
+        document.getElementById("forgiveBtn")
+        .addEventListener("click", () => {
+
+            document.body.innerHTML = `
+            <div style="text-align:center;width:100%;">
+            <h1>❤️ Спасибо ❤️</h1>
+            <p>Я очень надеюсь ещё много раз услышать твоё "хи-хи-хаха".</p>
+            </div>
+            `;
+        });
+
+        noBtn.addEventListener("click", () => {
+            alert("Ты оказалась быстрее меня 😅");
+        });
+
+        return;
+    }
+
+    current++;
+}
+
+showSlide();
+
+nextBtn.addEventListener("click", showSlide);
+
+</script>
+
+</body>
+</html>
